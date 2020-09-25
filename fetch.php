@@ -12,6 +12,7 @@ $total_row = $statement->rowCount();
 $output = '
 <table class="table table-striped table-bordered">
 	<tr>
+		<th><input type = "checkbox"></th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Status</th>
@@ -30,6 +31,7 @@ if($total_row > 0)
 
 		$output .= '
 		<tr>
+		<td style="text-align:center;"><input type="checkbox"></td>
 			<td width="40%">'.$row["first_name"].'</td>
 			<td width="40%">'.$row["last_name"].'</td>
 			<td width="10%" style="text-align:center;">
