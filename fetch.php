@@ -75,15 +75,7 @@ echo $output;
 		$('.controls input:checkbox').prop('checked', false);
 	}
 });
-	$('#test').click(function(){
-		$('#test_dialog').attr('title', 'Add Data');
-		$('#action').val('insert');
-		$('#form_action').val('Insert');
-		$('#user_form')[0].reset();
-		$('#form_action').attr('disabled', false);
-		$("#user_dialog").dialog('open');
-		if ($('.controls input:checkbox').is(':checked')){
-		$("#first_name").val($('.controls input:checkbox').val());
-		}
-	});
+
+	
+	
 </script>

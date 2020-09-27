@@ -62,6 +62,36 @@ if(isset($_POST["action"]))
 		$statement->execute();
 		echo '<p>Data Deleted</p>';
 	}
+	if($_POST["action"] == "setAct"){
+		$trimmed = rtrim($_POST["id"], ",");
+		$id  = explode(",", $trimmed );
+		foreach ($id as $key => $value) {
+			$query = "UPDATE tbl_sample SET status = '1' WHERE id = ".$value."";
+		$statement = $connect->prepare($query);
+		$statement->execute();
+		}
+		echo '<p>Data Updated</p>';
+	}
+	if($_POST["action"] == "setNoAct"){
+		$trimmed = rtrim($_POST["id"], ",");
+		$id  = explode(",", $trimmed );
+		foreach ($id as $key => $value) {
+			$query = "UPDATE tbl_sample SET status = '0' WHERE id = ".$value."";
+		$statement = $connect->prepare($query);
+		$statement->execute();
+		}
+		echo '<p>Data Updated</p>';
+	}
+	if($_POST["action"] == "del"){
+		$trimmed = rtrim($_POST["id"], ",");
+		$id  = explode(",", $trimmed );
+		foreach ($id as $key => $value) {
+			$query = "DELETE FROM tbl_sample WHERE id = '".$value."'";
+			$statement = $connect->prepare($query);
+			$statement->execute();
+		}
+		echo '<p>Data deleted</p>';
+	}
 }
 
 ?>
