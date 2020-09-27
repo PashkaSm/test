@@ -11,6 +11,37 @@
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     </head>  
     <body>  
+    	<div id="test_dialog" title="Test Data">
+    		<p></p>
+			<form method="post" id="user_form">
+				<div class="form-group">
+					<label>Enter First Name</label>
+					<input type="text" name="first_name" id="first_name" class="form-control" />
+					<span id="error_first_name" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label>Enter Last Name</label>
+					<input type="text" name="last_name" id="last_name" class="form-control" />
+					<span id="error_last_name" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label>Status</label>
+					<input type="checkbox"  data-toggle="toggle" data-style="ios" name="status" id="status" class="form-control" >
+				</div>
+				<div class="form-group">
+					<label>Role</label>
+					<input type="checkbox" name="role" id="role" class="form-control"  />
+					<span id="error_role" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<input type="hidden" name="action" id="action" value="insert" />
+					<input type="hidden" name="hidden_id" id="hidden_id" />
+					<input type="submit" name="form_action" id="form_action" class="btn btn-info" value="Insert" />
+				</div>
+			</form>
+		</div>
+		<button type="button" name="test" id="test">test</button>
+		<br>
         <div class="container">
 			<br />
 			
@@ -86,6 +117,10 @@ $(document).ready(function(){
 	}
 	
 	$("#user_dialog").dialog({
+		autoOpen:false,
+		width:400
+	});
+	$("#test_dialog").dialog({
 		autoOpen:false,
 		width:400
 	});

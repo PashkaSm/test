@@ -12,7 +12,7 @@ $total_row = $statement->rowCount();
 $output = '
 <table class="table table-striped table-bordered">
 	<tr>
-		<th><input type = "checkbox"></th>
+		<th><input type = "checkbox" id="checkbox"></th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Status</th>
@@ -31,7 +31,9 @@ if($total_row > 0)
 
 		$output .= '
 		<tr>
-		<td style="text-align:center;"><input type="checkbox"></td>
+			<td style="text-align:center;" class="controls">
+				<input type="checkbox" id='.$row["id"].'>
+			</td>
 			<td width="40%">'.$row["first_name"].'</td>
 			<td width="40%">'.$row["last_name"].'</td>
 			<td width="10%" style="text-align:center;">
@@ -51,6 +53,7 @@ if($total_row > 0)
 				<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$row["id"].'">Delete</button>
 			</td>
 		</tr>
+
 		';
 	}
 }
@@ -64,4 +67,23 @@ else
 }
 $output .= '</table>';
 echo $output;
-?>
+?><script >
+	$('#checkbox').click(function(){
+	if ($(this).is(':checked')){
+		$('.controls input:checkbox').prop('checked', true);
+	} else {
+		$('.controls input:checkbox').prop('checked', false);
+	}
+});
+	$('#test').click(function(){
+		$('#test_dialog').attr('title', 'Add Data');
+		$('#action').val('insert');
+		$('#form_action').val('Insert');
+		$('#user_form')[0].reset();
+		$('#form_action').attr('disabled', false);
+		$("#user_dialog").dialog('open');
+		if ($('.controls input:checkbox').is(':checked')){
+		$("#first_name").val($('.controls input:checkbox').val());
+		}
+	});
+</script>
