@@ -17,21 +17,35 @@
 			
 			<h3 align="center">PHP Ajax Crud using JQuery UI Dialog</h3><br />
 			<br />
-			<div align="right" style="margin-bottom:5px;">
-			<button type="button" name="add" id="add" class="btn btn-success btn-xs">Add</button>
+			<div>
+				<select id="selectT">
+				  <option value="select">1. Please select</option>
+				  <option value="set_act">2. Set active</option>
+				  <option value="set_noact">3. Set not active</option> 
+				  <option value="del">4. Delete</option> 
+				</select>
+				<button id="buttonOkTop">ok</button>
+				<button type="button" name="add" class="add">Add</button>
 			</div>
+			<br>
+			<!-- <div align="right" style="margin-bottom:5px;">
+			<button type="button" name="add" id="add" class="btn btn-success btn-xs">Add</button>
+			</div> -->
 			<div class="table-responsive" id="user_data">
 				
 			</div>
-			<br>
+			<div>
+				<select id="selectB">
+				  <option value="select">1. Please select</option>
+				  <option value="set_act">2. Set active</option>
+				  <option value="set_noact">3. Set not active</option> 
+				  <option value="del">4. Delete</option> 
+				</select>
+				<button id="buttonOkBotom">ok</button>
+				<button type="button" name="add" class="add">Add</button>
+			</div>
 		</div>
-		<select id="select">
-		  <option value="select">1. Please select</option>
-		  <option value="set_act">2. Set active</option>
-		  <option value="set_noact">3. Set not active</option> 
-		  <option value="del">4. Delete</option> 
-		</select>
-		<button id="buttonOk">ok</button>
+		
 		<div id="user_dialog" title="Add Data">
 			<form method="post" id="user_form">
 				<div class="form-group">
@@ -46,17 +60,25 @@
 				</div>
 				<div class="form-group">
 					<label>Status</label>
-					<input type="checkbox"  data-toggle="toggle" data-style="ios" name="status" id="status" class="form-control" >
+					<br>
+					<label class="switch">
+					  <input type="checkbox" checked name="status" id="status">
+					  <span class="slider round"></span>
+					</label>
+					<!-- <input type="checkbox" checked data-toggle="toggle" data-style="ios" name="status" id="status" class="form-control" > -->
 				</div>
 				<div class="form-group">
-					<label>Role</label>
-					<input type="checkbox" name="role" id="role" class="form-control"  />
-					<span id="error_role" class="text-danger"></span>
+					<label>Role</label><br>
+					<select id="select_Adm" name="role">
+					  <option value="admin">Admin</option>
+					  <option value="user">User</option>
+					</select>
 				</div>
+				<hr>
 				<div class="form-group">
 					<input type="hidden" name="action" id="action" value="insert" />
 					<input type="hidden" name="hidden_id" id="hidden_id" />
-					<input type="submit" name="form_action" id="form_action" class="btn btn-info" value="Insert" />
+					<input type="submit" name="form_action" id="form_action" class="btn btn-info" value="Insert" style="float:right; " />
 				</div>
 			</form>
 		</div>
@@ -101,7 +123,7 @@ $(document).ready(function(){
 		width:400
 	});
 	
-	$('#add').click(function(){
+	$('.add').click(function(){
 		$('#user_dialog').attr('title', 'Add Data');
 		$('#action').val('insert');
 		$('#form_action').val('Insert');
@@ -219,11 +241,9 @@ $(document).ready(function(){
 		var id = $(this).attr("id");
 		$('#delete_confirmation').data('id', id).dialog('open');
 	});
-	$('#buttonOk').click(function(){
-		if ($('#select option:selected').text() == '1. Please select'){
-			$('.controls input:checkbox').prop('checked', true);
-		}
-		if($('#select option:selected').text() == '2. Set active'){
+	$('#buttonOkTop').click(function(){
+		
+		if($('#selectT option:selected').text() == '2. Set active'){
 			var id='', isChecked='';
 		    $('input:checkbox:checked').each(function(){
 		      id += $(this).attr('id')+',';
@@ -247,7 +267,7 @@ $(document).ready(function(){
 					}
 				}); 
 		}
-		if($('#select option:selected').text() == '3. Set not active'){
+		if($('#selectT option:selected').text() == '3. Set not active'){
 			var id='', isChecked='';
 		    $('input:checkbox:checked').each(function(){
 		      id += $(this).attr('id')+',';
@@ -271,7 +291,83 @@ $(document).ready(function(){
 					}
 				}); 
 		}	
-		if ($('#select option:selected').text() == '4. Delete'){
+		if ($('#selectT option:selected').text() == '4. Delete'){
+			var id='', isChecked='';
+		    $('input:checkbox:checked').each(function(){
+		      id += $(this).attr('id')+',';
+		      isChecked += $(this).attr('checked');
+		        
+		    });
+		     $.ajax({
+					url:"action.php",
+					method:"POST",
+					data:{
+						action: 'del',
+			            id: id, 
+			            isChecked: isChecked 
+			            },
+					success:function(data)
+					{
+						$('#delete_confirmation').dialog('close');
+						$('#action_alert').html(data);
+						$('#action_alert').dialog('open');
+						load_data();
+					}
+				}); 
+		}
+		
+});
+	$('#buttonOkBotom').click(function(){
+		
+		if($('#selectB option:selected').text() == '2. Set active'){
+			var id='', isChecked='';
+		    $('input:checkbox:checked').each(function(){
+		      id += $(this).attr('id')+',';
+		      isChecked += $(this).attr('checked');
+		        
+		    });
+		     $.ajax({
+					url:"action.php",
+					method:"POST",
+					data:{
+						action: 'setAct',
+			            id: id, 
+			            isChecked: isChecked 
+			            },
+					success:function(data)
+					{
+						$('#delete_confirmation').dialog('close');
+						$('#action_alert').html(data);
+						$('#action_alert').dialog('open');
+						load_data();
+					}
+				}); 
+		}
+		if($('#selectB option:selected').text() == '3. Set not active'){
+			var id='', isChecked='';
+		    $('input:checkbox:checked').each(function(){
+		      id += $(this).attr('id')+',';
+		      isChecked += $(this).attr('checked');
+		        
+		    });
+		     $.ajax({
+					url:"action.php",
+					method:"POST",
+					data:{
+						action: 'setNoAct',
+			            id: id, 
+			            isChecked: isChecked 
+			            },
+					success:function(data)
+					{
+						$('#delete_confirmation').dialog('close');
+						$('#action_alert').html(data);
+						$('#action_alert').dialog('open');
+						load_data();
+					}
+				}); 
+		}	
+		if ($('#selectB option:selected').text() == '4. Delete'){
 			var id='', isChecked='';
 		    $('input:checkbox:checked').each(function(){
 		      id += $(this).attr('id')+',';

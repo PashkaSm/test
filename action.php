@@ -6,7 +6,7 @@ include('database_connection.php');
 
 if(isset($_POST["action"]))
 {
-	if ($_POST['role']){
+	if ($_POST['role'] == "admin"){
 		$role = 1;
 	}else{
 		$role = 0;
