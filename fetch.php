@@ -12,7 +12,7 @@ $total_row = $statement->rowCount();
 $output = '
 <table class="table table-striped table-bordered">
 	<tr>
-		<th><input type = "checkbox" id="checkbox"></th>
+		<th><input type = "checkbox" id ="select_all" ></th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Status</th>
@@ -32,7 +32,7 @@ if($total_row > 0)
 		$output .= '
 		<tr>
 			<td style="text-align:center;" class="controls">
-				<input type="checkbox" id='.$row["id"].'>
+				<input type="checkbox" class="checkbox" id='.$row["id"].'>
 			</td>
 			<td width="40%">'.$row["first_name"].'</td>
 			<td width="40%">'.$row["last_name"].'</td>
@@ -68,14 +68,22 @@ else
 $output .= '</table>';
 echo $output;
 ?><script >
-	$('#checkbox').click(function(){
-	if ($(this).is(':checked')){
-		$('.controls input:checkbox').prop('checked', true);
-	} else {
-		$('.controls input:checkbox').prop('checked', false);
+	$(document).ready(function(){
+	 $("#select_all").change(function(){  //"select all" change 
+    $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
+});
+
+//".checkbox" change 
+$('.checkbox').change(function(){ 
+	//uncheck "select all", if one of the listed checkbox item is unchecked
+    if(false == $(this).prop("checked")){ //if this item is unchecked
+        $("#select_all").prop('checked', false); //change "select all" checked status to false
+    }
+	//check "select all" if all checkbox items are checked
+	if ($('.checkbox:checked').length == $('.checkbox').length ){
+		$("#select_all").prop('checked', true);
 	}
 });
 
-	
-	
+	});
 </script>

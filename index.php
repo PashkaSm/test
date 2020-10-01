@@ -48,6 +48,7 @@
 		
 		<div id="user_dialog" title="Add Data">
 			<form method="post" id="user_form">
+				<div class="modal-body">
 				<div class="form-group">
 					<label>Enter First Name</label>
 					<input type="text" name="first_name" id="first_name" class="form-control" />
@@ -74,12 +75,13 @@
 					  <option value="user">User</option>
 					</select>
 				</div>
-				<hr>
+				</div>
+				<div class="modal-footer">
 				<div class="form-group">
 					<input type="hidden" name="action" id="action" value="insert" />
 					<input type="hidden" name="hidden_id" id="hidden_id" />
 					<input type="submit" name="form_action" id="form_action" class="btn btn-info" value="Insert" style="float:right; " />
-				</div>
+				</div></div>
 			</form>
 		</div>
 		
@@ -200,8 +202,17 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(data)
 			{
+
 				$('#first_name').val(data.first_name);
 				$('#last_name').val(data.last_name);
+				if (data.status == 1) 
+					$('#status').prop('checked',true);
+				else
+					$('#status').prop('checked',false);
+				if (data.role == 1) 
+					$('#select_Adm ').val('admin');
+				else
+					$('#select_Adm ').val('user');
 				$('#user_dialog').attr('title', 'Edit Data');
 				$('#action').val('update');
 				$('#hidden_id').val(id);
@@ -242,7 +253,9 @@ $(document).ready(function(){
 		$('#delete_confirmation').data('id', id).dialog('open');
 	});
 	$('#buttonOkTop').click(function(){
-		
+		if($('#selectT option:selected').text() == '1. Please select'){
+			alert ("Виберіть варіант");
+		}
 		if($('#selectT option:selected').text() == '2. Set active'){
 			var id='', isChecked='';
 		    $('input:checkbox:checked').each(function(){
@@ -318,7 +331,12 @@ $(document).ready(function(){
 		
 });
 	$('#buttonOkBotom').click(function(){
-		
+		if (!$('.controls [type=checkbox]').is(':checked')){
+			alert ("Виберіть юзера");
+		}else{
+		if($('#selectB option:selected').text() == '1. Please select'){
+			// alert ("Виберіть варіант");
+		}
 		if($('#selectB option:selected').text() == '2. Set active'){
 			var id='', isChecked='';
 		    $('input:checkbox:checked').each(function(){
@@ -391,7 +409,7 @@ $(document).ready(function(){
 					}
 				}); 
 		}
-		
+		}
 });
 }); 
 

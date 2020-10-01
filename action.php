@@ -38,6 +38,9 @@ if(isset($_POST["action"]))
 		{
 			$output['first_name'] = $row['first_name'];
 			$output['last_name'] = $row['last_name'];
+			$output['role'] = $row['role'];
+			$output['status'] = $row['status'];
+
 		}
 		echo json_encode($output);
 	}
