@@ -18,13 +18,12 @@ if(isset($_POST["action"]))
 	}
 	if($_POST["action"] == "insert")
 	{
-		
-		$query = "
-		INSERT INTO tbl_sample (first_name, last_name,role,status) VALUES ('".$_POST["first_name"]."', '".$_POST["last_name"]."' ,'".$role."','".$status."')
-		";
-		$statement = $connect->prepare($query);
-		$statement->execute();
-		echo '<p>Data Inserted...</p>';
+			$query = "
+			INSERT INTO tbl_sample (first_name, last_name,role,status) VALUES ('".$_POST["first_name"]."', '".$_POST["last_name"]."' ,'".$role."','".$status."')
+			";
+			$statement = $connect->prepare($query);
+			$statement->execute();
+			echo '<p>Data Inserted...</p>';
 	}
 	if($_POST["action"] == "fetch_single")
 	{
@@ -40,7 +39,6 @@ if(isset($_POST["action"]))
 			$output['last_name'] = $row['last_name'];
 			$output['role'] = $row['role'];
 			$output['status'] = $row['status'];
-
 		}
 		echo json_encode($output);
 	}
@@ -97,4 +95,4 @@ if(isset($_POST["action"]))
 	}
 }
 
-?>
+// ?>

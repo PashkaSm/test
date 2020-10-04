@@ -67,7 +67,8 @@ else
 }
 $output .= '</table>';
 echo $output;
-?><script >
+?>
+<script >
 	$(document).ready(function(){
 	 $("#select_all").change(function(){  //"select all" change 
     $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
@@ -84,6 +85,5 @@ $('.checkbox').change(function(){
 		$("#select_all").prop('checked', true);
 	}
 });
-
 	});
 </script>
